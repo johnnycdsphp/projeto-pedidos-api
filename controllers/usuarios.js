@@ -1,5 +1,5 @@
 const mysql = require('../mysql').pool
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcryptjs")
 
 exports.salvaUsuario = (req, res, next) => {
     mysql.getConnection((error, conn) => {
