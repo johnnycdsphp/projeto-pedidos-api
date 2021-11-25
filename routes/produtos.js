@@ -1,20 +1,11 @@
 const express = require('express')
+const bcrypt = require('bcrypt')
 const mysql = require('../mysql').pool
 const router = express.Router()
+const produtos = require('../controllers/produtos')
+const validaSessao = require('../middleware/validaSessao')
 
-router.get('/', (req, res, next) => {
-    mysql.getConnection((error, conn) => {
+router.post('/', validaSessao, produtos.salvaProduto )
+router.get('/', validaSessao, produtos.listaProdutos )
 
-        if( error ){ return res.status('400').send({ mensagem:'Erro ao transferir os dados' }) }
-        conn.query(
-            'SELECT * FROM Produtos ORDER BY nome LIMIT 50',
-            ( error, result, fields ) => {
-                return res.status(200).send({
-                    quantidadeRegistros: result.length,
-                    resposta: result
-                })
-            }
-        )
-    })
-})  
 module.exports = router
