@@ -11,9 +11,6 @@
     "type": "git",
     "url": "git+https://github.com/johnnycdsphp/projeto-pedidos-api.git"
   },
-  "keywords": [
-    "FilhoDaMaeJoana1"
-  ],
   "author": "Johnny Santos",
   "license": "ISC",
   "bugs": {
