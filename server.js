@@ -10,8 +10,6 @@ var credentials = {key: privateKey, cert: certificate};
 var express = require('express');
 var app = express();
 
-// your express configuration here
-
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
