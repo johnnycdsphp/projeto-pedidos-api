@@ -1,21 +1,24 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+var cors = require('cors')
 
 const app = express()
 
 //CORS
-app.use((req, res, next) => {
+// app.use((req, res, next) => {
 
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Header', '*')
+//     res.header('Access-Control-Allow-Origin', '*')
+//     res.header('Access-Control-Allow-Header', '*')
 
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH')
-        return res.status(200).send({})
-    }
+//     if (req.method === 'OPTIONS') {
+//         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH')
+//         return res.status(200).send({})
+//     }
 
-    next()
-})
+//     next()
+// })
+
+app.use(cors())
 
 const routerUsuarios = require('./routes/usuarios')
 const routerClientes = require('./routes/clientes')
