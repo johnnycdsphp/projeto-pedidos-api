@@ -5,8 +5,8 @@ const router = express.Router()
 const pedidos = require('../controllers/pedidos')
 const validaSessao = require('../middleware/validaSessao')
 
-router.post('/', validaSessao, pedidos.salvaPedido )
-router.put('/', validaSessao, pedidos.atualizaPedido )
-router.get('/', validaSessao, pedidos.listaPedidos )
+router.post('/', validaSessao, pedidos.salvaPedido)
+router.put('/', validaSessao, pedidos.atualizaPedido)
+router.post('/lista', validaSessao, pedidos.listaPedidos)
 
 module.exports = router

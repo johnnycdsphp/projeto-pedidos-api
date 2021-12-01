@@ -110,8 +110,10 @@ exports.listaPedidos = (req, res, next) => {
         const textoPesquisa = '%' + req.body.textoPesquisa + '%'
         const query = `SELECT
                             Pedidos.id,
+                            Pedidos.numeroPedidoCliente,
                             Clientes.nome,
-                            Clientes.documento
+                            Clientes.documento,
+                            ( SELECT SUM( quantidade ) FROM PedidoItens WHERE PedidoItens.idPedido = Pedidos.id ) AS quantidade
                             FROM Pedidos
                             INNER JOIN Clientes ON Clientes.id = Pedidos.idCliente
                             WHERE Pedidos.idConta = ( SELECT idConta FROM Sessoes WHERE token = ? ) AND ( Clientes.nome LIKE ? OR numeroPedidoCliente LIKE ? ) ORDER BY dataHoraEdicao DESC`
@@ -126,19 +128,23 @@ exports.listaPedidos = (req, res, next) => {
                 })
             }
 
-            if (results.length < 1) {
-                return res.status(401).send({
-                    resposta: {
-                        mensagem: 'Os dados informados estão incorretos',
-                        codigoErroTecnico: '001'
-                    }
-                })
-            } else {
+            if (results.length >= 0) {
+
                 return res.status(200).send({
                     resposta: {
+                        codigoMensagem: '001',
                         mensagem: 'Pedidos listados com sucesso',
                         quantidadeRegistros: results.length,
                         pedidos: results
+                    }
+                })
+
+            } else {
+                return res.status(401).send({
+                    resposta: {
+                        codigoMensagem: '002',
+                        mensagem: 'Os dados informados estão incorretos',
+                        codigoErroTecnico: '001'
                     }
                 })
             }

@@ -1,10 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-var cors = require('cors')
+const cors = require('cors');
 
 const app = express()
 
-//CORS
+// //CORS
 // app.use((req, res, next) => {
 
 //     res.header('Access-Control-Allow-Origin', '*')
@@ -18,7 +18,7 @@ const app = express()
 //     next()
 // })
 
-app.use(cors())
+app.use(cors());
 
 const routerUsuarios = require('./routes/usuarios')
 const routerClientes = require('./routes/clientes')

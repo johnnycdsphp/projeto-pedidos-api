@@ -24,12 +24,11 @@ exports.salvaUsuario = (req, res, next) => {
 
             const query = `INSERT INTO Usuarios ( idConta, nome, email, senha ) VALUES ( ?, ?, ?, ? )`
             conn.query(query, [req.body.idConta, req.body.nome, req.body.email, hash], (error, result) => {
-                conn.release() //Fecha a conexão
+                conn.release()
                 if (error) {
-                    return res.status('500').send({
+                    return res.status('200').send({
                         resposta: {
                             mensagem: 'Houve um erro ao processar sua requisição, provavelmente o email já tenha sido cadastrado',
-                            //erro: error
                         }
                     })
                 }
@@ -119,7 +118,9 @@ exports.autenticaUsuario = (req, res, next) => {
                                 return res.status('200').send({
                                     resposta: {
                                         mensagem: 'Usuário autenticado com sucesso',
-                                        token: hash
+                                        token: hash,
+                                        email: results[0].email,
+                                        nome: results[0].nome
                                     }
                                 })
 
